@@ -1,1 +1,1 @@
-echo "Deploying!"
+echo "Deploying to $1!"
