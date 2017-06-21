@@ -15,18 +15,25 @@ pipeline {
       }
     }
     stage('Backend') {
+      agent {
+        docker {
+          image 'maven:3-alpine'
+          args '-v /home/bitwiseman/docker/.m2:/root/.m2'
+        }
+      }
+
       steps {
         parallel(
-          "Unit": {
-            sh 'echo Unit'
-
+         'Unit' : {
+           unstash 'war'
+           sh 'mvn -B -DtestFailureIgnore test || exit 0'
+           junit '**/surefire-reports/**/*.xml'
           },
-          "Performance": {
-            sh 'echo Performance'
-
-          }
-        )
-      }
+          'Performance' : {
+            unstash 'war'
+            sh '# ./mvn -B gatling:execute'
+         })
+       }
     }
     stage('Frontend') {
       steps {
