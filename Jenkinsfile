@@ -53,7 +53,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh 'echo Deploy'
+        sh './deploy.sh'
       }
     }
   }
