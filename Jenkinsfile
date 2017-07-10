@@ -52,6 +52,9 @@ pipeline {
       }
     }
     stage('Deploy to Staging') {
+      when {
+        branch 'master'
+      }
       steps {
         sh './deploy.sh staging'
         sh 'echo Notifying the Team!'
@@ -59,6 +62,9 @@ pipeline {
     }
 
     stage('Deploy to Production') {
+      when {
+        branch 'master'
+      }
       steps {
         input message: 'Deploy to production?',
                    ok: 'Fire away!'
