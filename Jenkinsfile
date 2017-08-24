@@ -47,6 +47,7 @@ pipeline {
         input(message: 'Deploy to staging?', ok: 'Fire away!')
         sh './jenkins/deploy.sh production'
         sh 'echo Notifying appropriate team members!'
+        sh 'echo test'
       }
     }
   }
