@@ -51,4 +51,7 @@ pipeline {
       }
     }
   }
+  parameters {
+    string(name: 'DEPLOY_ENV', defaultValue: 'staging', description: '')
+  }
 }
